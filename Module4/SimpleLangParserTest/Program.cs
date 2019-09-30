@@ -23,6 +23,9 @@ end;
         c := 234
     end
 end";
+            fileContents = @"begin 
+                                       b:=b + (1 + 5) 
+                                  end";
             TextReader inputReader = new StringReader(fileContents);
             Lexer l = new Lexer(inputReader);
             Parser p = new Parser(l);

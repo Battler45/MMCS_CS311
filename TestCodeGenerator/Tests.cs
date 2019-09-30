@@ -86,13 +86,15 @@ namespace TestCodeGenerator
         [Test]
         public void TestWhile()
         {
-            Assert.AreEqual("1024", TestHelper.GenerateNRun(@"begin var a2,b2; b2:=1; a2:=10; while a2 do begin a2:=a2-1; b2:=b2*2; end; write(b2) end"));
+            //Assert.AreEqual("1024", TestHelper.GenerateNRun(@"begin var a2,b2; b2:=1; a2:=10; while a2 do begin a2:=a2-1; b2:=b2*2; end; write(b2) end"));
+            Assert.AreEqual("32", TestHelper.GenerateNRun(@"begin var a2,b2; b2:=1; a2:=10; while a2 do begin a2:=a2-2; b2:=b2*2; end; write(b2) end"));
         }
         
         [Test]
         public void TestUntil()
         {
-            Assert.AreEqual("1024", TestHelper.GenerateNRun(@"begin var a3,b3; b3:=1; a3:=10; repeat a3:=a3-1; b3:=b3*2 until a3; write(b3) end"));
+            //Assert.AreEqual("1024", TestHelper.GenerateNRun(@"begin var a3,b3; b3:=1; a3:=10; repeat a3:=a3-1; b3:=b3*2 until a3; write(b3) end"));
+            Assert.AreEqual("32", TestHelper.GenerateNRun(@"begin var a3,b3; b3:=1; a3:=10; repeat a3:=a3-2; b3:=b3*2 until a3; write(b3) end"));
         }
     }
 }

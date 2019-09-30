@@ -142,4 +142,20 @@ namespace ProgramTree
             v.VisitVarDefNode(this);
         }
     }
+    public class IfNode : StatementNode
+    {
+        public ExprNode Expr { get; set; }
+        public StatementNode ThenStat { get; set; }
+        public StatementNode ElseStat { get; set; }
+        public IfNode(ExprNode expr, StatementNode thenStat, StatementNode elseStat = null)
+        {
+            Expr = expr;
+            ThenStat = thenStat;
+            ElseStat = elseStat;
+        }
+        public override void Visit(Visitor v)
+        {
+            v.VisitIfNode(this);
+        }
+    }
 }

@@ -42,10 +42,13 @@ namespace TestGeneratedLexer
         [Test]
         public void TestString()
         {
-            LexerAddon lexer = new LexerAddon(@"3 389 3 'ssfsf ' ");
+            LexerAddon lexer = new LexerAddon(@"i22d1 3 3 'ssfsf 8.5 389 inNd5' ");
             lexer.Lex();
-            
+
             // TODO: checks in this test
+            Assert.AreEqual(0.0, lexer.sumDouble, 0.001);
+            Assert.AreEqual(6, lexer.sumInt);
+            Assert.AreEqual(1, lexer.idCount);
         }
         
         [Test]

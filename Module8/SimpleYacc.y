@@ -24,13 +24,13 @@
 
 %start progr
 
-%token BEGIN END CYCLE ASSIGN ASSIGNPLUS ASSIGNMINUS ASSIGNMULT SEMICOLON WRITE VAR PLUS MINUS MULT DIV LPAREN RPAREN COLUMN
+%token BEGIN END CYCLE ASSIGN ASSIGNPLUS ASSIGNMINUS ASSIGNMULT SEMICOLON WRITE VAR PLUS MINUS MULT DIV LPAREN RPAREN COLUMN PERCENT MOD IF THEN ELSE WHILE DO REPEAT UNTIL
 %token <iVal> INUM 
 %token <dVal> RNUM 
 %token <sVal> ID
 
 %type <eVal> expr ident T F 
-%type <stVal> statement assign block cycle write empty var varlist 
+%type <stVal> statement assign block cycle write empty var varlist if while repeat
 %type <blVal> stlist block
 
 %%
@@ -55,6 +55,9 @@ statement: assign { $$ = $1; }
 		| write   { $$ = $1; }
 		| var     { $$ = $1; }
 		| empty   { $$ = $1; }
+		| if	  { $$ = $1; }
+		| while	  { $$ = $1; }
+		| repeat  { $$ = $1; }
 		;
 
 empty	: { $$ = new EmptyNode(); }
@@ -79,6 +82,7 @@ expr	: expr PLUS T { $$ = new BinOpNode($1,$3,'+'); }
 		
 T 		: T MULT F { $$ = new BinOpNode($1,$3,'*'); }
 		| T DIV F { $$ = new BinOpNode($1,$3,'/'); }
+		| T MOD F { $$ = new BinOpNode($1,$3,'%'); }
 		| F { $$ = $1; }
 		;
 		
@@ -115,5 +119,28 @@ varlist	: ident
 		}
 		;
 	
+if		: IF expr THEN statement ELSE statement
+		{ 
+			$$ = new IfNode($2, $4, $6); 
+		}
+		| IF expr THEN statement 
+		{ 
+			$$ = new IfNode($2, $4); 
+		}
+		;
+
+while   : WHILE expr DO statement 
+		{ 
+			$$ = new WhileNode($2, $4); 
+		}
+		;
+
+repeat  : REPEAT stlist UNTIL expr
+		{ 
+			$$ = new RepeatNode($2, $4); 
+		}
+		;
+		
+	 
 %%
 

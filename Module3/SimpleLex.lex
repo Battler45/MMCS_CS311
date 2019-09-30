@@ -7,12 +7,17 @@ AlphaDigit {Alpha}|{Digit}
 INTNUM  {Digit}+
 REALNUM {INTNUM}\.{INTNUM}
 ID {Alpha}{AlphaDigit}* 
+DotChr [^\r\n]
+OneLineCmnt  \/\/{DotChr}*
+
 
 // Здесь можно делать описания типов, переменных и методов - они попадают в класс Scanner
 %{
   public int LexValueInt;
   public double LexValueDouble;
 %}
+
+%x COMMENT
 
 %%
 {INTNUM} { 
@@ -53,10 +58,42 @@ cycle {
   return (int)Tok.SEMICOLON;
 }
 
+{OneLineCmnt} {
+	return (int)Tok.COMMENT;
+}
+\'[^']*\' {
+	return (int)Tok.STRINGAP;
+}
+
+"{" { 
+  // переход в состояние COMMENT
+  BEGIN(COMMENT);
+}
+
+<COMMENT>begin { 
+  return (int)Tok.BEGIN;
+}
+
+<COMMENT>end { 
+  return (int)Tok.END;
+}
+
+<COMMENT>{ID} {
+  // обрабатывается ID внутри комментария
+  return (int)Tok.ID;
+}
+
+<COMMENT> "}" { 
+  // переход в состояние INITIAL
+  BEGIN(INITIAL);
+  return (int)Tok.LONGCOMMENT;
+}
+
 [^ \r\n] {
 	LexError();
 	return 0; // конец разбора
 }
+
 
 %%
 

@@ -95,21 +95,32 @@ namespace TestASTParser
         [Test]
         public void TestIf()
         {
-            Assert.Fail();
+            var tree = ASTParserTests.Parse("begin if 2 then a:=2 else a:=3 end");
+            Assert.AreEqual("ProgramTree.IfNode, SimpleLang", (string)tree["StList"]["$values"][0]["$type"]); 
+            tree = ASTParserTests.Parse("begin if 2 then a:=2 end");
+            Assert.AreEqual("ProgramTree.IfNode, SimpleLang", (string)tree["StList"]["$values"][0]["$type"]);
             // TODO: дописать тест
         }
         
         [Test]
         public void TestVarDef()
         {
-            Assert.Fail();
+            var tree = ASTParserTests.Parse("begin var a, b, c end");
+            Assert.AreEqual("ProgramTree.VarDefNode, SimpleLang", (string)tree["StList"]["$values"][0]["$type"]);
+            tree = ASTParserTests.Parse("begin var a end");
+            Assert.AreEqual("ProgramTree.VarDefNode, SimpleLang", (string)tree["StList"]["$values"][0]["$type"]);
             // TODO: дописать тест
         }
         
         [Test]
         public void TestBinary()
         {
-            Assert.Fail();
+            var tree = ASTParserTests.Parse("begin a:=b end");
+            Assert.AreEqual("ProgramTree.IdNode, SimpleLang", (string)tree["StList"]["$values"][0]["Expr"]["$type"]);
+            tree = ASTParserTests.Parse("begin c:=a+b/c end");
+            Assert.AreEqual("ProgramTree.BinaryNode, SimpleLang", (string)tree["StList"]["$values"][0]["Expr"]["$type"]);
+            tree = ASTParserTests.Parse("begin a:=b/c end");
+            Assert.AreEqual("ProgramTree.BinaryNode, SimpleLang", (string)tree["StList"]["$values"][0]["Expr"]["$type"]);
             // TODO: дописать тест
         }
     }

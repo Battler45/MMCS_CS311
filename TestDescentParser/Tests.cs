@@ -55,10 +55,11 @@ namespace TestDescentParser
         [Test]
         public void TestFor()
         {
+            //тесты для for неправильные(используется +) - дополнительное 2-ое задание
             Assert.IsTrue(Parse(@"begin 
                                      for a:=1 to 5 do 
                                       begin 
-                                       b:=1
+                                       b:=b 
                                      end
                                   end"));
                                   
@@ -66,8 +67,8 @@ namespace TestDescentParser
                                      for a:=1 to 5 do 
                                       begin 
                                        for i:=1 to 6 do
-                                          c:=1;
-                                       b:=1 
+                                          c:=c;
+                                       b:=b 
                                      end
                                   end"));
             

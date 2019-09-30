@@ -15,6 +15,11 @@ namespace SimpleLang.Visitors
             from = _from;
             to = _to;
         }
-       
+
+        public override void VisitIdNode(IdNode id)
+        {
+            if (id.Name == from)
+                id.Name = to;
+        }
     }
 }

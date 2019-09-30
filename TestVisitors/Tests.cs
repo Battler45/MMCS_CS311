@@ -31,7 +31,17 @@ namespace TestVisitors
             p.root.Visit(avgCounter);
             Assert.AreEqual(0, avgCounter.MidCount());            
         }
-             
+
+        [Test]
+        public void NoLoopTest2()
+        {
+            Parser p = Parse(@"begin var l; l:=2 end ");
+            Assert.IsTrue(p.Parse());
+            var avgCounter = new CountCyclesOpVisitor();
+            p.root.Visit(avgCounter);
+            Assert.AreEqual(0, avgCounter.MidCount());
+        }
+
         [Test]
         public void ThreeLoopsTest()
         {
@@ -73,6 +83,16 @@ namespace TestVisitors
     [TestFixture]
     public class TestCommonVariable: ParserTest
     {
+        [Test]
+        public void NoneVarTest()
+        {
+            Parser p = Parse(@"begin end ");
+            Assert.IsTrue(p.Parse());
+            var varCounter = new CommonlyUsedVarVisitor();
+            p.root.Visit(varCounter);
+            Assert.AreEqual("", varCounter.mostCommonlyUsedVar());
+        }
+
         [Test]
         public void OneVarTest()
         {
@@ -130,33 +150,46 @@ namespace TestVisitors
             CollectionAssert.AreEqual(new int[] {2}, resultList);            
         }
         
-        [TestFixture]
-        public class TestLoopNestVisitor
+       
+    }
+
+    [TestFixture]
+    public class TestLoopNestVisitor : ParserTest
+    {
+        [Test]
+        public void NoneLoopTest()
         {
-            [Test]
-            public void OneLoopTest()
-            {
-                Parser p = Parse(@"begin cycle 2 write(2) end");
-                Assert.IsTrue(p.Parse());
-                var loopCounter = new MaxNestCyclesVisitor();
-                p.root.Visit(loopCounter);
-                Assert.AreEqual(1, loopCounter.MaxNest);            
-            }
-            
-            [Test]
-            public void ThreeLoopsTest1()
-            {
-                Parser p = Parse(@"begin cycle 2 cycle 3 cycle 4 write(5) end");
-                Assert.IsTrue(p.Parse());
-                var loopCounter = new MaxNestCyclesVisitor();
-                p.root.Visit(loopCounter);
-                Assert.AreEqual(3, loopCounter.MaxNest);            
-            }
-            
-            [Test]
-            public void LoopTreeTest()
-            {
-                Parser p = Parse(@"begin var a6; 
+            Parser p = Parse(@"begin end");
+            Assert.IsTrue(p.Parse());
+            var loopCounter = new MaxNestCyclesVisitor();
+            p.root.Visit(loopCounter);
+            Assert.AreEqual(0, loopCounter.MaxNest);
+        }
+
+        [Test]
+        public void OneLoopTest()
+        {
+            Parser p = Parse(@"begin cycle 2 write(2) end");
+            Assert.IsTrue(p.Parse());
+            var loopCounter = new MaxNestCyclesVisitor();
+            p.root.Visit(loopCounter);
+            Assert.AreEqual(1, loopCounter.MaxNest);
+        }
+
+        [Test]
+        public void ThreeLoopsTest1()
+        {
+            Parser p = Parse(@"begin cycle 2 cycle 3 cycle 4 write(5) end");
+            Assert.IsTrue(p.Parse());
+            var loopCounter = new MaxNestCyclesVisitor();
+            p.root.Visit(loopCounter);
+            Assert.AreEqual(3, loopCounter.MaxNest);
+        }
+
+        [Test]
+        public void LoopTreeTest()
+        {
+            Parser p = Parse(@"begin var a6; 
                                                     cycle 2 
                                                     begin
                                                         cycle 1 
@@ -171,14 +204,12 @@ namespace TestVisitors
                                                             end
                                                     end
                                               end");
-                Assert.IsTrue(p.Parse());
-                var loopCounter = new MaxNestCyclesVisitor();
-                p.root.Visit(loopCounter);
-                Assert.AreEqual(4, loopCounter.MaxNest);            
-            }
-           
+            Assert.IsTrue(p.Parse());
+            var loopCounter = new MaxNestCyclesVisitor();
+            p.root.Visit(loopCounter);
+            Assert.AreEqual(4, loopCounter.MaxNest);
         }
-       
+
     }
 
     [TestFixture]

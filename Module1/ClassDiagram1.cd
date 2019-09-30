@@ -1,0 +1,102 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Lexer.CommentLexer" Collapsed="true">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAgAAAAAAAAAAAAAAAAAAAAAAAIIAAAACAAAAAAAAA=</HashCode>
+      <FileName>Lexer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Lexer.DigitListLexer" Collapsed="true">
+    <Position X="7.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAgAAAAAAAAAAAAAAAAAAAAAAAAIAAAACAAAAAAAAA=</HashCode>
+      <FileName>Lexer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Lexer.DoubleLexer" Collapsed="true">
+    <Position X="0.75" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAgAAAAAAAAAAAAAAAAAAAAAAAIIAAAACAAAAAAAAA=</HashCode>
+      <FileName>Lexer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Lexer.IdentChainLexer" Collapsed="true">
+    <Position X="4.5" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAgAAAAAAAAAAAAAAAAAAAAAAAIIAAAACAAAAAAAAA=</HashCode>
+      <FileName>Lexer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Lexer.IdentLexer" Collapsed="true">
+    <Position X="6" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACAgAAAAAAAAAAAAAAAAAAAAAAAIIAAAACAAAAAAAAA=</HashCode>
+      <FileName>Lexer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Lexer.IntLexer" Collapsed="true">
+    <Position X="9.75" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAgAAAAAAAAAAAAAAAgAAAAAAAAAAAAACAAAAAAAAA=</HashCode>
+      <FileName>Lexer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Lexer.IntNoZeroLexer" Collapsed="true">
+    <Position X="11" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Lexer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Lexer.LetterDigitGroupLexer" Collapsed="true">
+    <Position X="6.5" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAgAAAAAAAAAAAAAAAAAAAAAAAIIAAAACAAAAAAAAA=</HashCode>
+      <FileName>Lexer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Lexer.LetterDigitLexer" Collapsed="true">
+    <Position X="2.25" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAgAAAAAAAAAAAAAAAAAAAAAAAIIAAAACAAAAAAAAA=</HashCode>
+      <FileName>Lexer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Lexer.LetterListLexer" Collapsed="true">
+    <Position X="4" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAgAAAAAAAAAAAAAAAAAAAAAAAAIAAAACAAAAAAAAA=</HashCode>
+      <FileName>Lexer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Lexer.Lexer" Collapsed="true">
+    <Position X="4" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAkAAAAAAEAAQAAAAAAIAAIAAAAQAAAAAAAAAAoAAA=</HashCode>
+      <FileName>Lexer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Lexer.LexerException" Collapsed="true">
+    <Position X="11" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Lexer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Lexer.Program" Collapsed="true">
+    <Position X="8.5" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAA=</HashCode>
+      <FileName>Lexer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Lexer.StringLexer" Collapsed="true">
+    <Position X="0.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAgAAAAAAAAAAAAAAAAAAAAAAAIIAAAACAAAAAAAAA=</HashCode>
+      <FileName>Lexer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

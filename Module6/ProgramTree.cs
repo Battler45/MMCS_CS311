@@ -52,6 +52,91 @@ namespace ProgramTree
         }
     }
 
+    public class WhileNode : StatementNode
+    {
+        public ExprNode Expr { get; set; }
+        public StatementNode Stat { get; set; }
+        public WhileNode(ExprNode expr, StatementNode stat)
+        {
+            Expr = expr;
+            Stat = stat;
+        }
+    }
+
+    public class RepeatNode : StatementNode
+    {
+        public ExprNode Expr { get; set; }
+        public StatementNode Stat { get; set; }
+        public RepeatNode(ExprNode expr, StatementNode stat)
+        {
+            Expr = expr;
+            Stat = stat;
+        }
+    }
+
+    public class ForNode : StatementNode
+    {
+        public ExprNode Expr { get; set; }
+        public StatementNode Stat { get; set; }
+        public StatementNode Assign { get; set; }
+        public ForNode(StatementNode assign, ExprNode expr, StatementNode stat)
+        {
+            Assign = assign;
+            Expr = expr;
+            Stat = stat;
+        }
+    }
+
+    public class WriteNode : StatementNode
+    {
+        public ExprNode Expr { get; set; }
+        public WriteNode(ExprNode expr)
+        {
+            Expr = expr;
+        }
+    }
+
+    public class IfNode : StatementNode
+    {
+        public ExprNode Expr { get; set; }
+        public StatementNode Stat0 { get; set; }
+        public StatementNode Stat1 { get; set; }
+        public IfNode(ExprNode expr, StatementNode stat0)
+        {
+            Expr = expr;
+            Stat0 = stat0;
+        }
+        public IfNode(ExprNode expr, StatementNode stat0, StatementNode stat1)
+        {
+            Expr = expr;
+            Stat0 = stat0;
+            Stat1 = stat1;
+        }
+    }
+    
+    public class VarDefNode : StatementNode
+    {
+        public IdentListNode IdentList { get; set; }
+        public VarDefNode(IdentListNode identList)
+        {
+            IdentList = identList;
+        }
+    }
+    
+    public class IdentListNode : StatementNode
+    {
+        public List<IdNode> StList = new List<IdNode>();
+        public IdentListNode(IdNode id)
+        {
+            Add(id);
+        }
+        public void Add(IdNode id)
+        {
+            StList.Add(id);
+        }
+    }
+
+
     public class BlockNode : StatementNode
     {
         public List<StatementNode> StList = new List<StatementNode>();
@@ -65,4 +150,25 @@ namespace ProgramTree
         }
     }
 
+    public enum OperationType { Plus, Minus, Mult, Divide };
+    public class ExprOperationNode : ExprNode
+    {
+        public OperationType Operation { get; set; }
+        public ExprOperationNode(string token)
+        { 
+        
+        }
+    }
+    public class BinaryNode : ExprNode
+    {
+        public ExprNode Left { get; set; }
+        public ExprNode Right { get; set; }
+        public string Op { get; set; }
+        public BinaryNode(ExprNode left, ExprNode right, string op)
+        {
+            Left = left;
+            Right = right;
+            Op = op;
+        }
+    }
 }

@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using NUnit.Framework;
 using Lexer;
 
@@ -90,13 +90,6 @@ namespace TestLexer
         }
 
         [Test]
-        public void TestIdEmpty()
-        {
-            IdentLexer l = new IdentLexer("");
-            Assert.Throws<LexerException>(() => { l.Parse(); }, "Пропускает пустую строку");
-        }
-
-        [Test]
         public void TestIdCaps()
         {
             IdentLexer l = new IdentLexer("AAAAA");
@@ -115,6 +108,13 @@ namespace TestLexer
         {
             IdentLexer l = new IdentLexer("a12_5");
             Assert.IsTrue(l.Parse(), "Не разбирает _");
+        }
+
+        [Test]
+        public void TestIdEmpty()
+        {
+            IdentLexer l = new IdentLexer("");
+            Assert.Throws<LexerException>(() => { l.Parse(); }, "Пропускает пустую строку");
         }
 
         [Test]
@@ -143,22 +143,6 @@ namespace TestLexer
         }
 
         [Test]
-        public void TestIntNotZeroFail()
-        {
-            IntNoZeroLexer l = new IntNoZeroLexer("01234");
-            Assert.Throws<LexerException>(() => { l.Parse(); }, "Пропускает 0");
-
-            l = new IntNoZeroLexer("+01234");
-            Assert.Throws<LexerException>(() => { l.Parse(); }, "Пропускает +0");
-
-            l = new IntNoZeroLexer("-01234");
-            Assert.Throws<LexerException>(() => { l.Parse(); }, "Пропускает -0");
-
-            l = new IntNoZeroLexer("0");
-            Assert.Throws<LexerException>(() => { l.Parse(); }, "Пропускает 0");
-        }
-
-        [Test]
         public void TestIntNotZeroPass()
         {
             IntNoZeroLexer l = new IntNoZeroLexer("12034");
@@ -172,6 +156,22 @@ namespace TestLexer
 
             l = new IntNoZeroLexer("-12034");
             Assert.IsTrue(l.Parse(), "Не разбирает -12034");
+        }
+
+        [Test]
+        public void TestIntNotZeroFail()
+        {
+            IntNoZeroLexer l = new IntNoZeroLexer("01234");
+            Assert.Throws<LexerException>(() => { l.Parse(); }, "Пропускает 0");
+
+            l = new IntNoZeroLexer("+01234");
+            Assert.Throws<LexerException>(() => { l.Parse(); }, "Пропускает +0");
+
+            l = new IntNoZeroLexer("-01234");
+            Assert.Throws<LexerException>(() => { l.Parse(); }, "Пропускает -0");
+
+            l = new IntNoZeroLexer("0");
+            Assert.Throws<LexerException>(() => { l.Parse(); }, "Пропускает 0");
         }
 
     }
@@ -384,19 +384,20 @@ namespace TestLexer
 
             DoubleLexer l = new DoubleLexer("123.4");
             Assert.IsTrue(l.Parse(), "Не понимает 123.4");
-            Assert.AreEqual(l.ParseResult, 123.4, 0.01, "Неправильно прочитал 123.4");
+            Assert.AreEqual(l.ParseResult, 123.4, "Неправильно прочитал 123.4");
 
             l = new DoubleLexer("123");
             Assert.IsTrue(l.Parse(), "Не понимает 123");
-            Assert.AreEqual(l.ParseResult, 123, 0.01, "Неправильно прочитал 123");
+            Assert.AreEqual(l.ParseResult, 123, "Неправильно прочитал 123");
 
             l = new DoubleLexer("0.4");
             Assert.IsTrue(l.Parse(), "Не понимает 0.4");
-            Assert.AreEqual(l.ParseResult, 0.4, 0.01, "Неправильно прочитал 0.4");
+            Assert.AreEqual(l.ParseResult, 0.4, "Неправильно прочитал 0.4");
 
             l = new DoubleLexer("0.4");
             Assert.IsTrue(l.Parse(), "Не понимает 0.4");
-            Assert.AreEqual(l.ParseResult, 0.4, 0.01, "Неправильно прочитал 0.4");
+            Assert.AreEqual(l.ParseResult, 0.4, "Неправильно прочитал 0.4");
+
         }
 
         [Test]

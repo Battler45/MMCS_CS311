@@ -39,7 +39,7 @@ namespace ProgramTree
         public ExprNode Left { get; set; }
         public ExprNode Right { get; set; }
         public char Op { get; set; }
-        public BinOpNode(ExprNode Left, ExprNode Right, char op) 
+        public BinOpNode(ExprNode Left, ExprNode Right, char op)
         {
             this.Left = Left;
             this.Right = Right;
@@ -158,6 +158,37 @@ namespace ProgramTree
         public override void Visit(Visitor v)
         {
             v.VisitIfNode(this);
+        }
+    }
+
+
+    public class WhileNode : StatementNode
+    {
+        public ExprNode Сondition { get; set; }
+        public StatementNode Stat { get; set; }
+        public WhileNode(ExprNode expr, StatementNode stat)
+        {
+            Сondition = expr;
+            Stat = stat;
+        }
+        public override void Visit(Visitor v)
+        {
+            v.VisitWhileNode(this);
+        }
+    }
+
+    public class RepeatNode : StatementNode
+    {
+        public ExprNode Сondition { get; set; }
+        public BlockNode Block { get; set; }
+        public RepeatNode(BlockNode block, ExprNode expr)
+        {
+            Сondition = expr;
+            Block = block;
+        }
+        public override void Visit(Visitor v)
+        {
+            v.VisitRepeatNode(this);
         }
     }
 }

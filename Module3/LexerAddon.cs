@@ -34,7 +34,13 @@ namespace  GeneratedLexer
             
             myScanner = new Scanner(inputStream);
         }
-
+        private void IdStatistics(string lex)
+        {
+            var idLength = lex.Length;
+            avgIdLength = (avgIdLength * (idCount++) + idLength) / idCount;
+            if (minIdLength > idLength) minIdLength = idLength;
+            if (maxIdLength < idLength) maxIdLength = idLength;
+        }
         public void Lex()
         {
             // Чтобы вещественные числа распознавались и отображались в формате 3.14 (а не 3,14 как в русской Culture)
@@ -48,6 +54,19 @@ namespace  GeneratedLexer
                 {
                     break;
                 }
+                if (myScanner.YY_START == 0)
+                {
+                    if (tok == (int)Tok.ID)
+                        IdStatistics(myScanner.yytext);
+                    if (tok == (int)Tok.INUM)
+                        sumInt += myScanner.LexValueInt;
+                    if (tok == (int)Tok.RNUM)
+                        sumDouble += myScanner.LexValueDouble;
+                }
+                else
+                    if (tok == (int)Tok.ID)
+                        idsInComment.Add(myScanner.yytext);
+                
             } while (true);
         }
     }

@@ -44,6 +44,9 @@ namespace SimpleLang.Visitors
                 case '/':
                     genc.Emit(OpCodes.Div);
                     break;
+                case '%':
+                    genc.Emit(OpCodes.Rem);
+                    break;
             }
         }
         public override void VisitAssignNode(AssignNode a) 
@@ -77,6 +80,28 @@ namespace SimpleLang.Visitors
 
             genc.MarkLabel(endLoop);
         }
+        public override void VisitWhileNode(WhileNode c)
+        {
+            Label startLoop = genc.DefineLabel();
+            Label endLoop = genc.DefineLabel();
+            genc.MarkLabel(startLoop);
+            c.Сondition.Visit(this);
+            genc.Emit(OpCodes.Brfalse, endLoop);
+            c.Stat.Visit(this); 
+            genc.Emit(OpCodes.Br, startLoop);
+            genc.MarkLabel(endLoop);
+        }
+        public override void VisitRepeatNode(RepeatNode c)
+        {
+            Label startLoop = genc.DefineLabel();
+            Label endLoop = genc.DefineLabel();
+            genc.MarkLabel(startLoop);
+            c.Block.Visit(this);
+            c.Сondition.Visit(this);
+            genc.Emit(OpCodes.Brfalse, endLoop);
+            genc.Emit(OpCodes.Br, startLoop);
+            genc.MarkLabel(endLoop);
+        }
         public override void VisitBlockNode(BlockNode bl) 
         {
             foreach (var st in bl.StList)
@@ -92,6 +117,23 @@ namespace SimpleLang.Visitors
         {
             foreach (var v in w.vars)
                 vars[v.Name] = genc.DeclareLocal(typeof(int));
+        }
+
+        public override void VisitIfNode(IfNode w)
+        {
+            var @else = genc.DefineLabel();
+            var ifEnd = genc.DefineLabel();
+            w.expr.Visit(this);
+            var falseLabel = (w.ifFalse == null) ? ifEnd : @else;
+            genc.Emit(OpCodes.Brfalse, falseLabel); 
+            w.ifTrue.Visit(this);
+            if (w.ifFalse != null)
+            {
+                genc.Emit(OpCodes.Br, ifEnd);
+                genc.MarkLabel(@else);
+                w.ifFalse.Visit(this);
+            }
+            genc.MarkLabel(ifEnd); // this marks the return point
         }
 
         public void EndProgram()
